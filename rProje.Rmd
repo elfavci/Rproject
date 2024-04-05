@@ -1,0 +1,75 @@
+---
+title: "deneme"
+output: html_document
+date: "2024-04-05"
+---
+
+```{r}
+library(readxl)
+dataOne<-readxl::read_xlsx("Amazon_top100_bests2009to2021.xlsx")
+#print(dataOne)
+#class(dataOne)
+dataTwo<-readxl::read_xlsx("Amazon_top100_bestselling_books_2009to2021.xlsx")
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+library(DBI)
+library(RSQLite)
+library(dplyr)
+# Veritabanı bağlantısını oluşturun
+##con <- dbConnect(RSQLite::SQLite(), dbname = "veritabani.db")
+
+## Mevcut tabloları silme
+##dbRemoveTable(con, "dataOne")
+##dbRemoveTable(con, "dataTwo")
+
+##dbWriteTable(con, "dataOne", dataOne)
+##dbWriteTable(con, "dataTwo", dataTwo)
+
+# Inner join işlemini yapma
+##dataJoined <- inner_join(dataOne, dataTwo, by = c("ID","Name"))
+head(dataJoined)
+
+library(openxlsx)
+# DataJoined verisini Excel dosyası olarak kaydetme
+##write.xlsx(dataJoined, "dataJoined.xlsx")
+# Veritabanı bağlantısını kapatma
+##dbDisconnect(con)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r}
+library(dygraphs)
+library(ggplot2)
+# 2012 yılındaki verileri seç
+# Veri çerçevemizdeki 2012 yılındaki değerleri filtreleyelim
+filtered_data <- subset(dataJoined, Ranking == 1)
+
+# Bar grafiğini oluşturalım
+bar_plot <- ggplot(data = filtered_data, aes(x = Name, y = Rating)) +
+            geom_bar(stat = "identity", position="dodge",fill = "blueviolet",colour="black")+
+            theme(axis.text.x = element_text(angle = 20, hjust = 1))
+
+            
+
+# Grafiği görüntüleyelim
+print(bar_plot)
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+
+```
+
+
