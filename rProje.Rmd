@@ -37,7 +37,7 @@ library(dplyr)
 head(dataJoined)
 
 library(openxlsx)
-# DataJoined verisini Excel dosyası olarak kaydetme
+# DataJoined verisini Excel dosyası olarak kaydet
 ##write.xlsx(dataJoined, "dataJoined.xlsx")
 # Veritabanı bağlantısını kapatma
 ##dbDisconnect(con)
